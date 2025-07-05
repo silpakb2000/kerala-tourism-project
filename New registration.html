@@ -1,0 +1,477 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kerala Tourism Booking</title>
+  
+  <!-- Tailwind CSS CDN -->
+  <script src="https://cdn.tailwindcss.com"></script>
+  
+  <!-- Google Fonts -->
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&display=swap" rel="stylesheet">
+  
+  <style>
+    body {
+      font-family: 'Inter', sans-serif;
+      background: linear-gradient(to right bottom, #86efac, #34d399, #06b6d4);
+      background-image: url('https://www.transparenttextures.com/patterns/symphony.png');
+      background-blend-mode: overlay;
+      background-size: cover;
+      display: flex;
+      justify-content: center;
+      align-items: center;
+      min-height: 100vh;
+      margin: 0;
+      padding: 20px;
+      box-sizing: border-box;
+    }
+
+    input:focus, select:focus {
+      outline: none;
+      border-color: #06b6d4;
+      box-shadow: 0 0 0 3px rgba(6, 182, 212, 0.4);
+    }
+
+    @keyframes fade-in {
+      from { opacity: 0; transform: translateY(-10px); }
+      to { opacity: 1; transform: translateY(0); }
+    }
+
+    .animate-fade-in {
+      animation: fade-in 0.6s ease-out;
+    }
+
+    .member-card {
+      background: linear-gradient(135deg, #f0fdfa 0%, #ccfbf1 100%);
+      border: 1px solid #5eead4;
+      transition: all 0.3s ease;
+    }
+
+    .member-card:hover {
+      box-shadow: 0 8px 25px rgba(20, 184, 166, 0.15);
+      transform: translateY(-2px);
+    }
+
+    .section-header {
+      background: linear-gradient(135deg, #0f766e 0%, #0d9488 100%);
+      color: white;
+      padding: 12px 20px;
+      border-radius: 8px;
+      margin-bottom: 20px;
+      font-weight: 600;
+      text-align: center;
+      box-shadow: 0 4px 12px rgba(15, 118, 110, 0.3);
+    }
+  </style>
+</head>
+
+<body class="bg-gradient-to-br from-emerald-200 via-teal-300 to-cyan-400 font-inter">
+
+  <div class="container bg-white p-6 md:p-8 rounded-2xl shadow-2xl w-full max-w-4xl max-h-[90vh] overflow-y-auto">
+    <h2 class="text-3xl md:text-4xl font-extrabold text-center text-teal-700 mb-8 tracking-tight animate-fade-in">
+      Book Your Kerala Adventure
+    </h2>
+
+    <form action="#" method="post" class="space-y-8">
+      
+      <!-- Trip Details Section -->
+      <div class="section-header">
+        🏖️ Trip Details
+      </div>
+      
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+        <!-- Destination -->
+        <div>
+          <label for="destination" class="block text-sm font-medium text-gray-700 mb-1">Destination:</label>
+          <select id="destination" name="destination" required onchange="updatePricing()"
+            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 hover:border-teal-400 hover:shadow-md transition duration-200 ease-in-out">
+            <option value="">Select Destination</option>
+            <option value="munnar">Munnar - Hill Station (₹8,000/person)</option>
+            <option value="alleppey">Alleppey - Backwaters (₹12,000/person)</option>
+            <option value="kochi">Kochi - Heritage City (₹6,000/person)</option>
+            <option value="thekkady">Thekkady - Wildlife (₹9,000/person)</option>
+            <option value="varkala">Varkala - Beach Paradise (₹7,000/person)</option>
+            <option value="wayanad">Wayanad - Nature Retreat (₹8,500/person)</option>
+            <option value="kovalam">Kovalam - Beach Resort (₹10,000/person)</option>
+          </select>
+        </div>
+
+        <!-- Number of Members -->
+        <div>
+          <label for="memberCount" class="block text-sm font-medium text-gray-700 mb-1">Number of Members:</label>
+          <select id="memberCount" name="memberCount" required onchange="generateMemberForms()"
+            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 hover:border-teal-400 hover:shadow-md transition duration-200 ease-in-out">
+            <option value="">Select Members</option>
+            <option value="1">1 Member</option>
+            <option value="2">2 Members</option>
+            <option value="3">3 Members</option>
+            <option value="4">4 Members</option>
+            <option value="5">5 Members</option>
+            <option value="6">6 Members</option>
+            <option value="7">7 Members</option>
+            <option value="8">8 Members</option>
+          </select>
+        </div>
+
+        <!-- Check-in Date -->
+        <div>
+          <label for="checkinDate" class="block text-sm font-medium text-gray-700 mb-1">Check-in Date:</label>
+          <input type="date" id="checkinDate" name="checkinDate" required onchange="calculateDuration()"
+            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 hover:border-teal-400 hover:shadow-md transition duration-200 ease-in-out">
+        </div>
+
+        <!-- Check-out Date -->
+        <div>
+          <label for="checkoutDate" class="block text-sm font-medium text-gray-700 mb-1">Check-out Date:</label>
+          <input type="date" id="checkoutDate" name="checkoutDate" required onchange="calculateDuration()"
+            class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 hover:border-teal-400 hover:shadow-md transition duration-200 ease-in-out">
+        </div>
+      </div>
+
+      <!-- Duration Display -->
+      <div id="durationDisplay" class="hidden bg-teal-50 p-4 rounded-lg border border-teal-200">
+        <p class="text-teal-700 font-medium text-center" id="durationText"></p>
+      </div>
+
+      <!-- Member Details Section -->
+      <div id="memberDetailsSection" class="hidden">
+        <div class="section-header">
+          👥 Member Details
+        </div>
+        <div id="memberForms" class="space-y-6">
+          <!-- Member forms will be generated here -->
+        </div>
+      </div>
+
+      <!-- Pricing Summary -->
+      <div id="pricingSummary" class="hidden">
+        <div class="section-header">
+          💰 Pricing Summary
+        </div>
+        <div class="bg-gradient-to-r from-emerald-50 to-teal-50 p-6 rounded-lg border border-emerald-200">
+          <div class="space-y-3">
+            <div class="flex justify-between items-center">
+              <span class="text-gray-700">Base Price per Person:</span>
+              <span class="font-semibold text-teal-700" id="basePrice">₹0</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-700">Number of Members:</span>
+              <span class="font-semibold text-teal-700" id="memberCountDisplay">0</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-700">Number of Days:</span>
+              <span class="font-semibold text-teal-700" id="daysCount">0</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-700">Subtotal:</span>
+              <span class="font-semibold text-teal-700" id="subtotal">₹0</span>
+            </div>
+            <div class="flex justify-between items-center">
+              <span class="text-gray-700">GST (18%):</span>
+              <span class="font-semibold text-teal-700" id="gstAmount">₹0</span>
+            </div>
+            <hr class="border-emerald-300">
+            <div class="flex justify-between items-center text-xl">
+              <span class="font-bold text-gray-800">Total Amount:</span>
+              <span class="font-bold text-emerald-600" id="totalAmount">₹0</span>
+            </div>
+          </div>
+        </div>
+      </div>
+
+      <!-- Payment Method Section -->
+      <div id="paymentSection" class="hidden">
+        <div class="section-header">
+          💳 Payment Method
+        </div>
+        
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-6">
+          <!-- Payment Type -->
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-3">Select Payment Method:</label>
+            <div class="grid grid-cols-1 md:grid-cols-3 gap-4">
+              <label class="cursor-pointer">
+                <input type="radio" name="paymentMethod" value="card" class="sr-only" onchange="togglePaymentDetails()">
+                <div class="payment-option p-4 border-2 border-gray-200 rounded-lg text-center hover:border-teal-400 hover:bg-teal-50 transition-all duration-200">
+                  <div class="text-2xl mb-2">💳</div>
+                  <div class="font-medium">Credit/Debit Card</div>
+                </div>
+              </label>
+              
+              <label class="cursor-pointer">
+                <input type="radio" name="paymentMethod" value="upi" class="sr-only" onchange="togglePaymentDetails()">
+                <div class="payment-option p-4 border-2 border-gray-200 rounded-lg text-center hover:border-teal-400 hover:bg-teal-50 transition-all duration-200">
+                  <div class="text-2xl mb-2">📱</div>
+                  <div class="font-medium">UPI Payment</div>
+                </div>
+              </label>
+              
+              <label class="cursor-pointer">
+                <input type="radio" name="paymentMethod" value="netbanking" class="sr-only" onchange="togglePaymentDetails()">
+                <div class="payment-option p-4 border-2 border-gray-200 rounded-lg text-center hover:border-teal-400 hover:bg-teal-50 transition-all duration-200">
+                  <div class="text-2xl mb-2">🏦</div>
+                  <div class="font-medium">Net Banking</div>
+                </div>
+              </label>
+            </div>
+          </div>
+
+          <!-- Card Payment Details -->
+          <div id="cardDetails" class="hidden md:col-span-2 space-y-4">
+            <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+              <div>
+                <label for="cardNumber" class="block text-sm font-medium text-gray-700 mb-1">Card Number:</label>
+                <input type="text" id="cardNumber" name="cardNumber" placeholder="1234 5678 9012 3456"
+                  class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 hover:border-teal-400 hover:shadow-md transition duration-200 ease-in-out">
+              </div>
+              <div>
+                <label for="cardHolder" class="block text-sm font-medium text-gray-700 mb-1">Card Holder Name:</label>
+                <input type="text" id="cardHolder" name="cardHolder"
+                  class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 hover:border-teal-400 hover:shadow-md transition duration-200 ease-in-out">
+              </div>
+              <div>
+                <label for="expiryDate" class="block text-sm font-medium text-gray-700 mb-1">Expiry Date:</label>
+                <input type="text" id="expiryDate" name="expiryDate" placeholder="MM/YY"
+                  class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 hover:border-teal-400 hover:shadow-md transition duration-200 ease-in-out">
+              </div>
+              <div>
+                <label for="cvv" class="block text-sm font-medium text-gray-700 mb-1">CVV:</label>
+                <input type="text" id="cvv" name="cvv" placeholder="123"
+                  class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 hover:border-teal-400 hover:shadow-md transition duration-200 ease-in-out">
+              </div>
+            </div>
+          </div>
+
+          <!-- UPI Payment Details -->
+          <div id="upiDetails" class="hidden md:col-span-2">
+            <label for="upiId" class="block text-sm font-medium text-gray-700 mb-1">UPI ID:</label>
+            <input type="text" id="upiId" name="upiId" placeholder="yourname@upi"
+              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 hover:border-teal-400 hover:shadow-md transition duration-200 ease-in-out">
+          </div>
+
+          <!-- Net Banking Details -->
+          <div id="netbankingDetails" class="hidden md:col-span-2">
+            <label for="bankName" class="block text-sm font-medium text-gray-700 mb-1">Select Bank:</label>
+            <select id="bankName" name="bankName"
+              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 hover:border-teal-400 hover:shadow-md transition duration-200 ease-in-out">
+              <option value="">Select Your Bank</option>
+              <option value="sbi">State Bank of India</option>
+              <option value="hdfc">HDFC Bank</option>
+              <option value="icici">ICICI Bank</option>
+              <option value="axis">Axis Bank</option>
+              <option value="pnb">Punjab National Bank</option>
+              <option value="canara">Canara Bank</option>
+              <option value="bob">Bank of Baroda</option>
+            </select>
+          </div>
+        </div>
+      </div>
+
+      <!-- Book Now Button -->
+      <div id="bookButton" class="hidden pt-6">
+        <button type="submit"
+          class="w-full py-4 px-6 rounded-lg text-white font-semibold text-lg
+                 bg-gradient-to-r from-green-500 to-teal-600 hover:from-green-600 hover:to-teal-700
+                 shadow-lg hover:shadow-xl transform hover:scale-105 transition-all duration-300 ease-in-out
+                 focus:outline-none focus:ring-4 focus:ring-green-300">
+          Confirm Booking & Pay Now
+        </button>
+      </div>
+
+      <!-- Navigation Links -->
+      <div class="flex flex-wrap justify-center gap-4 mt-8 text-sm border-t pt-6">
+        <a href="home.html"
+          class="text-teal-600 hover:text-teal-800 font-medium transition duration-200 ease-in-out 
+                 focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 rounded-md px-2">
+          Home
+        </a>
+        <a href="Contact.html"
+          class="text-teal-600 hover:text-teal-800 font-medium transition duration-200 ease-in-out 
+                 focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 rounded-md px-2">
+          Contact
+        </a>
+        <a href="logintourism.html"
+          class="text-teal-600 hover:text-teal-800 font-medium transition duration-200 ease-in-out 
+                 focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 rounded-md px-2">
+          Login
+        </a>
+        <a href="Privacy & Policy.html"
+          class="text-teal-600 hover:text-teal-800 font-medium transition duration-200 ease-in-out 
+                 focus:ring-2 focus:ring-offset-2 focus:ring-teal-500 rounded-md px-2">
+          Privacy & Policy
+        </a>
+      </div>
+    </form>
+  </div>
+
+  <script>
+    // Destination pricing map
+    const destinationPrices = {
+      'munnar': 8000,
+      'alleppey': 12000,
+      'kochi': 6000,
+      'thekkady': 9000,
+      'varkala': 7000,
+      'wayanad': 8500,
+      'kovalam': 10000
+    };
+
+    let currentMembers = 0;
+    let currentDays = 0;
+    let currentPrice = 0;
+
+    // Generate member forms based on selected count
+    function generateMemberForms() {
+      const memberCount = parseInt(document.getElementById('memberCount').value);
+      const memberFormsContainer = document.getElementById('memberForms');
+      const memberDetailsSection = document.getElementById('memberDetailsSection');
+      
+      if (memberCount > 0) {
+        currentMembers = memberCount;
+        memberDetailsSection.classList.remove('hidden');
+        memberFormsContainer.innerHTML = '';
+        
+        for (let i = 1; i <= memberCount; i++) {
+          const memberForm = createMemberForm(i);
+          memberFormsContainer.appendChild(memberForm);
+        }
+        
+        updatePricing();
+      } else {
+        memberDetailsSection.classList.add('hidden');
+        currentMembers = 0;
+        updatePricing();
+      }
+    }
+
+    // Create individual member form
+    function createMemberForm(memberNumber) {
+      const memberDiv = document.createElement('div');
+      memberDiv.className = 'member-card p-6 rounded-lg';
+      memberDiv.innerHTML = `
+        <h4 class="text-lg font-semibold text-teal-700 mb-4">Member ${memberNumber} Details</h4>
+        <div class="grid grid-cols-1 md:grid-cols-2 gap-4">
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Full Name:</label>
+            <input type="text" name="member${memberNumber}_name" required
+              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 hover:border-teal-400 hover:shadow-md transition duration-200 ease-in-out">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Age:</label>
+            <input type="number" name="member${memberNumber}_age" min="1" max="100" step="1" required
+              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 hover:border-teal-400 hover:shadow-md transition duration-200 ease-in-out">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Phone Number:</label>
+            <input type="tel" name="member${memberNumber}_phone" required
+              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 hover:border-teal-400 hover:shadow-md transition duration-200 ease-in-out">
+          </div>
+          <div>
+            <label class="block text-sm font-medium text-gray-700 mb-1">Email:</label>
+            <input type="email" name="member${memberNumber}_email" required
+              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 hover:border-teal-400 hover:shadow-md transition duration-200 ease-in-out">
+          </div>
+          <div class="md:col-span-2">
+            <label class="block text-sm font-medium text-gray-700 mb-1">Address:</label>
+            <textarea name="member${memberNumber}_address" rows="2" required
+              class="w-full p-3 border border-gray-300 rounded-lg focus:ring-2 focus:ring-teal-500 focus:border-teal-500 hover:border-teal-400 hover:shadow-md transition duration-200 ease-in-out"></textarea>
+          </div>
+        </div>`;
+      return memberDiv;
+    }
+
+    // Calculate trip duration
+    function calculateDuration() {
+      const checkinDate = document.getElementById('checkinDate').value;
+      const checkoutDate = document.getElementById('checkoutDate').value;
+      
+      if (checkinDate && checkoutDate) {
+        const checkin = new Date(checkinDate);
+        const checkout = new Date(checkoutDate);
+        const timeDiff = checkout.getTime() - checkin.getTime();
+        const dayDiff = Math.ceil(timeDiff / (1000 * 3600 * 24));
+        
+        if (dayDiff > 0) {
+          currentDays = dayDiff;
+          document.getElementById('durationDisplay').classList.remove('hidden');
+          document.getElementById('durationText').textContent = `Trip Duration: ${dayDiff} ${dayDiff === 1 ? 'day' : 'days'}`;
+          updatePricing();
+        } else {
+          document.getElementById('durationDisplay').classList.add('hidden');
+          currentDays = 0;
+          updatePricing();
+        }
+      }
+    }
+
+    // Update pricing calculations
+    function updatePricing() {
+      const destination = document.getElementById('destination').value;
+      
+      if (destination && currentMembers > 0 && currentDays > 0) {
+        currentPrice = destinationPrices[destination];
+        const subtotal = currentPrice * currentMembers * currentDays;
+        const gstAmount = subtotal * 0.18; // 18% GST
+        const totalAmount = subtotal + gstAmount;
+        
+        document.getElementById('basePrice').textContent = `₹${currentPrice.toLocaleString()}`;
+        document.getElementById('memberCountDisplay').textContent = currentMembers;
+        document.getElementById('daysCount').textContent = currentDays;
+        document.getElementById('subtotal').textContent = `₹${subtotal.toLocaleString()}`;
+        document.getElementById('gstAmount').textContent = `₹${Math.round(gstAmount).toLocaleString()}`;
+        document.getElementById('totalAmount').textContent = `₹${Math.round(totalAmount).toLocaleString()}`;
+        
+        document.getElementById('pricingSummary').classList.remove('hidden');
+        document.getElementById('paymentSection').classList.remove('hidden');
+        document.getElementById('bookButton').classList.remove('hidden');
+      } else {
+        document.getElementById('pricingSummary').classList.add('hidden');
+        document.getElementById('paymentSection').classList.add('hidden');
+        document.getElementById('bookButton').classList.add('hidden');
+      }
+    }
+
+    // Toggle payment method details
+    function togglePaymentDetails() {
+      const selectedMethod = document.querySelector('input[name="paymentMethod"]:checked').value;
+      
+      // Hide all payment details
+      document.getElementById('cardDetails').classList.add('hidden');
+      document.getElementById('upiDetails').classList.add('hidden');
+      document.getElementById('netbankingDetails').classList.add('hidden');
+      
+      // Show selected payment method details
+      if (selectedMethod === 'card') {
+        document.getElementById('cardDetails').classList.remove('hidden');
+      } else if (selectedMethod === 'upi') {
+        document.getElementById('upiDetails').classList.remove('hidden');
+      } else if (selectedMethod === 'netbanking') {
+        document.getElementById('netbankingDetails').classList.remove('hidden');
+      }
+      
+      // Update payment option styling
+      document.querySelectorAll('.payment-option').forEach(option => {
+        option.classList.remove('border-teal-400', 'bg-teal-50');
+        option.classList.add('border-gray-200');
+      });
+      
+      const selectedOption = document.querySelector(`input[value="${selectedMethod}"]`).parentElement.querySelector('.payment-option');
+      selectedOption.classList.add('border-teal-400', 'bg-teal-50');
+      selectedOption.classList.remove('border-gray-200');
+    }
+
+    // Set minimum date to today
+    document.addEventListener('DOMContentLoaded', function() {
+      const today = new Date().toISOString().split('T')[0];
+      document.getElementById('checkinDate').setAttribute('min', today);
+      document.getElementById('checkoutDate').setAttribute('min', today);
+      
+      // Update checkout min date when checkin changes
+      document.getElementById('checkinDate').addEventListener('change', function() {
+        document.getElementById('checkoutDate').setAttribute('min', this.value);
+      });
+    });
+  </script>
+</body>
+</html>

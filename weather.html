@@ -1,0 +1,398 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Best Time to Visit Kerala</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            color: #333;
+            line-height: 1.6;
+        }
+
+        .container {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+        }
+
+        .header {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            text-align: center;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        .header h1 {
+            color: #6a4c93;
+            font-size: 3rem;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0, 0, 0, 0.1);
+            font-weight: 700;
+        }
+
+        .header p {
+            font-size: 1.2rem;
+            color: #555;
+            max-width: 800px;
+            margin: 0 auto;
+        }
+
+        .season-card {
+            background: rgba(255, 255, 255, 0.95);
+            border-radius: 20px;
+            padding: 40px;
+            margin-bottom: 40px;
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.1);
+            backdrop-filter: blur(10px);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        .season-card:hover {
+            transform: translateY(-5px);
+            box-shadow: 0 30px 60px rgba(0, 0, 0, 0.15);
+        }
+
+        .season-header {
+            display: flex;
+            align-items: center;
+            gap: 20px;
+            margin-bottom: 30px;
+            flex-wrap: wrap;
+        }
+
+        .season-icon {
+            width: 80px;
+            height: 80px;
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 2.5rem;
+            flex-shrink: 0;
+        }
+
+        .summer-icon {
+            background: linear-gradient(135deg, #ff9a9e 0%, #fecfef 100%);
+        }
+
+        .monsoon-icon {
+            background: linear-gradient(135deg, #a8edea 0%, #fed6e3 100%);
+        }
+
+        .winter-icon {
+            background: linear-gradient(135deg, #d299c2 0%, #fef9d7 100%);
+        }
+
+        .season-title {
+            flex: 1;
+        }
+
+        .season-title h2 {
+            color: #6a4c93;
+            font-size: 2.5rem;
+            margin-bottom: 10px;
+            font-weight: 600;
+        }
+
+        .season-title .dates {
+            color: #888;
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        .season-content {
+            display: grid;
+            grid-template-columns: 1fr 300px;
+            gap: 30px;
+            align-items: start;
+        }
+
+        .season-image {
+            width: 100%;
+            height: 200px;
+            object-fit: cover;
+            border-radius: 15px;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .placeholder-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            border-radius: 15px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            color: white;
+            font-size: 1.2rem;
+            box-shadow: 0 10px 30px rgba(0, 0, 0, 0.2);
+        }
+
+        .season-info {
+            flex: 1;
+        }
+
+        .season-info h3 {
+            color: #6a4c93;
+            font-size: 1.5rem;
+            margin: 30px 0 15px 0;
+            font-weight: 600;
+        }
+
+        .season-info p {
+            margin-bottom: 20px;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .tips-list {
+            background: rgba(106, 76, 147, 0.1);
+            border-radius: 15px;
+            padding: 25px;
+            margin-top: 20px;
+        }
+
+        .tips-list ul {
+            list-style: none;
+            margin: 15px 0;
+        }
+
+        .tips-list li {
+            padding: 8px 0;
+            position: relative;
+            padding-left: 30px;
+            color: #555;
+            font-size: 1.1rem;
+        }
+
+        .tips-list li::before {
+            content: "✓";
+            position: absolute;
+            left: 0;
+            color: #6a4c93;
+            font-weight: bold;
+            font-size: 1.2rem;
+        }
+
+        .home-button {
+            display: inline-block;
+            background: linear-gradient(135deg, #6a4c93 0%, #8b5a8c 100%);
+            color: white;
+            padding: 15px 30px;
+            text-decoration: none;
+            border-radius: 30px;
+            font-size: 1.1rem;
+            font-weight: 600;
+            transition: all 0.3s ease;
+            box-shadow: 0 10px 30px rgba(106, 76, 147, 0.3);
+            margin: 20px auto;
+            display: block;
+            text-align: center;
+            width: fit-content;
+        }
+
+        .home-button:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 15px 40px rgba(106, 76, 147, 0.4);
+            background: linear-gradient(135deg, #8b5a8c 0%, #6a4c93 100%);
+        }
+
+        footer {
+            background: rgba(0, 0, 0, 0.8);
+            color: white;
+            text-align: center;
+            padding: 30px;
+            margin-top: 50px;
+            border-radius: 20px;
+            backdrop-filter: blur(10px);
+        }
+
+        footer p {
+            font-size: 1.1rem;
+        }
+
+        @media (max-width: 768px) {
+            .container {
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2.5rem;
+            }
+            
+            .season-content {
+                grid-template-columns: 1fr;
+                gap: 20px;
+            }
+            
+            .season-header {
+                flex-direction: column;
+                text-align: center;
+            }
+            
+            .season-title h2 {
+                font-size: 2rem;
+            }
+            
+            .season-card {
+                padding: 25px;
+            }
+        }
+
+        @media (max-width: 480px) {
+            .header {
+                padding: 25px;
+            }
+            
+            .header h1 {
+                font-size: 2rem;
+            }
+            
+            .season-title h2 {
+                font-size: 1.8rem;
+            }
+            
+            .season-icon {
+                width: 60px;
+                height: 60px;
+                font-size: 2rem;
+            }
+        }
+    </style>
+</head>
+<body>
+    <div class="container">
+        <div class="header">
+            <h1>Best Time to Visit Kerala</h1>
+            <p>Kerala is an ideal destination throughout the year. Adorned with hill stations, backwaters and beaches, the state has something or the other to offer to the tourists throughout the year. Summers make a great time to plan a holiday in the hill stations of Kerala, whereas Monsoon is the time to enjoy Ayurvedic therapies and treatments. And winter is perfect for any kind of tour you dream of in Kerala.</p>
+        </div>
+
+        <div class="season-card">
+            <div class="season-header">
+                <div class="season-icon summer-icon">☀️</div>
+                <div class="season-title">
+                    <h2>Summer Season</h2>
+                    <div class="dates">March – June</div>
+                </div>
+            </div>
+            <div class="season-content">
+                <div class="season-info">
+                    <p>The summer season in Kerala begins towards the end of February. The weather is humid in the plains and coastal areas. The temperature remains high throughout the day, even in the night. The average maximum temperature hovers around 35°C, and the minimum temperature is around 28°C.</p>
+                    
+                    <p>In the hills, however, it is cool and pleasant. And intermittent rains, with lightning and thunder, are common.</p>
+                    
+                    <h3>Places to Visit</h3>
+                    <p>The summers in Kerala aren't favourable for an amazing tour, but you can visit the hill stations. It is also the best season if you don't like crowded tourist spots. Some places to visit in summer are picturesque hill stations like Munnar, Thekkady and Ponmudi. Trekking, hiking and biking are among the various exciting activities you can take part in, apart from enjoying the views.</p>
+                    
+                    <p>Gavi and Vagamon are two other high-altitude destinations worth your time to explore the natural beauty of Kerala. You can also enjoy a boat-ride in the backwaters of Alleppey during the summer season.</p>
+                </div>
+                <div class="placeholder-image">Alleppey Image</div>
+            </div>
+            
+            <div class="tips-list">
+                <h3>Summer Travel Tips</h3>
+                <ul>
+                    <li>Pack light cotton clothing</li>
+                    <li>Wear comfortable footwear</li>
+                    <li>Carry hat and sunglasses</li>
+                    <li>Take SPF 30+ sunscreen</li>
+                    <li>Drink plenty of water</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="season-card">
+            <div class="season-header">
+                <div class="season-icon monsoon-icon">🌧️</div>
+                <div class="season-title">
+                    <h2>Monsoon Season</h2>
+                    <div class="dates">July – August and October – November</div>
+                </div>
+            </div>
+            <div class="season-content">
+                <div class="season-info">
+                    <p>Kerala enjoys two monsoon seasons. And one of them begins by the end of June. This is known as the south west monsoon and it is the main rainy season in Kerala. While the weather remains humid during this time of the year, cool breeze from south-west and refreshing showers replace the scorching Sun.</p>
+                    
+                    <p>The south west monsoon or Edavappathy is characterised by torrential rains. The rivers are full of water, and the entire region gets a lush green cover. The average maximum temperature during the season is 30°C, and the minimum temperature is around 20°C.</p>
+                    
+                    <p>Kerala monsoon season returns in October with heavy downpours, accompanied by thunder and lightning. It is the retreating monsoon season, and it is known as the north east monsoon or Thulavarsham.</p>
+                    
+                    <h3>Places to Visit</h3>
+                    <p>During the rainy season in Kerala, most of the outdoor activities remain closed. But it is the best season for a Kerala visit at affordable rates. Also, Ayurvedic treatments are available at affordable rates during the monsoon season.</p>
+                    
+                    <p>Moreover, hill stations like Munnar and Vagamon look fresher and more beautiful during this season. And waterfalls cascade down at full force. Enjoying backwater boat cruises, watching boat races and taking a tour of spice plantations are among the activities you can take during monsoon season.</p>
+                </div>
+                <div class="placeholder-image">Monsoon Image</div>
+            </div>
+            
+            <div class="tips-list">
+                <h3>Monsoon Travel Tips</h3>
+                <ul>
+                    <li>Pack light cotton clothing</li>
+                    <li>Wear comfortable footwear</li>
+                    <li>Carry hat and sunglasses</li>
+                    <li>Have an umbrella/raincoat</li>
+                    <li>Take mosquito repellents and lotions</li>
+                    <li>Carry plastic bags for gadgets</li>
+                    <li>Pack extra clothes</li>
+                </ul>
+            </div>
+        </div>
+
+        <div class="season-card">
+            <div class="season-header">
+                <div class="season-icon winter-icon">❄️</div>
+                <div class="season-title">
+                    <h2>Winter Season</h2>
+                    <div class="dates">December – February</div>
+                </div>
+            </div>
+            <div class="season-content">
+                <div class="season-info">
+                    <p>The temperature starts falling during the latter part of November, as the north east monsoons recede. Although the temperature in Kerala doesn't vary much during seasons, it is cooler during the winter months. Humidity levels are low and so are the chances of rainfall.</p>
+                    
+                    <p>The average maximum temperature is 28°C, and the minimum is around 18°C. In the mountainous regions, the maximum averages at around 25°C, and the minimum is around 10°C. It is cold during the morning and evening hours, and the temperature may fall further during the nights.</p>
+                    
+                    <h3>Places to Visit</h3>
+                    <p>Winter is the peak season for Kerala tourism. It is also the most favourable season to indulge in various activities and sightseeing. You can enjoy the misty backwaters of Alleppey and Kumarakom or go for tea estate safari in Munnar during the winters.</p>
+                    
+                    <p>The winter season also allows for a soothing visit to beaches in Kovalam and wildlife safari in Thekkady. In winter, you can explore all the amazing tourist spots of Kochi, Trivandrum and other places without worrying about humidity, scorching sun or heavy rainfall.</p>
+                </div>
+                <div class="placeholder-image">Winter Image</div>
+            </div>
+            
+            <div class="tips-list">
+                <h3>Winter Travel Tips</h3>
+                <ul>
+                    <li>Book tickets and accommodation in advance</li>
+                    <li>Pack light cotton clothing</li>
+                    <li>Wear comfortable footwear</li>
+                    <li>Carry hat and sunglasses</li>
+                    <li>Have sweaters and scarves</li>
+                    <li>Take moisturisers and lip balms</li>
+                    <li>Carry an umbrella</li>
+                </ul>
+            </div>
+        </div>
+
+        <a href="home.html" class="home-button">🏠 Back to Home</a>
+
+        <footer>
+            <p>&copy; 2023 Kerala Tours</p>
+        </footer>
+    </div>
+</body>
+</html>

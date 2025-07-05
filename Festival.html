@@ -1,0 +1,451 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Kerala Tourism - Festivals and Events</title>
+    <style>
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            min-height: 100vh;
+            overflow-x: hidden;
+        }
+
+        /* Animated background particles */
+        body::before {
+            content: '';
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><radialGradient id="grad1" cx="50%" cy="50%" r="50%"><stop offset="0%" style="stop-color:rgba(255,255,255,0.1);stop-opacity:1" /><stop offset="100%" style="stop-color:rgba(255,255,255,0);stop-opacity:1" /></radialGradient></defs><circle cx="20" cy="20" r="2" fill="url(%23grad1)"><animate attributeName="cy" values="20;80;20" dur="3s" repeatCount="indefinite"/></circle><circle cx="80" cy="40" r="1.5" fill="url(%23grad1)"><animate attributeName="cy" values="40;10;40" dur="4s" repeatCount="indefinite"/></circle><circle cx="40" cy="60" r="1" fill="url(%23grad1)"><animate attributeName="cy" values="60;20;60" dur="5s" repeatCount="indefinite"/></circle></svg>') repeat;
+            animation: float 20s ease-in-out infinite;
+            pointer-events: none;
+            z-index: -1;
+        }
+
+        @keyframes float {
+            0%, 100% { transform: translateY(0px); }
+            50% { transform: translateY(-20px); }
+        }
+
+        /* Glass morphism container */
+        .glass-container {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+        }
+
+        header {
+            background: linear-gradient(135deg, #ff6b6b, #ee5a24, #ff9ff3, #54a0ff);
+            background-size: 400% 400%;
+            animation: gradientShift 8s ease infinite;
+            color: white;
+            padding: 30px 20px;
+            text-align: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        @keyframes gradientShift {
+            0% { background-position: 0% 50%; }
+            50% { background-position: 100% 50%; }
+            100% { background-position: 0% 50%; }
+        }
+
+        header::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            left: -50%;
+            width: 200%;
+            height: 200%;
+            background: radial-gradient(circle, rgba(255,255,255,0.1) 0%, transparent 70%);
+            animation: rotate 15s linear infinite;
+            pointer-events: none;
+        }
+
+        @keyframes rotate {
+            0% { transform: rotate(0deg); }
+            100% { transform: rotate(360deg); }
+        }
+
+        header h1 {
+            font-size: 3rem;
+            font-weight: 700;
+            margin-bottom: 20px;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: slideInDown 1s ease-out;
+            position: relative;
+            z-index: 1;
+        }
+
+        @keyframes slideInDown {
+            from {
+                transform: translateY(-100px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav {
+            position: relative;
+            z-index: 1;
+        }
+
+        nav ul {
+            list-style: none;
+            display: flex;
+            justify-content: center;
+            flex-wrap: wrap;
+            gap: 30px;
+        }
+
+        nav ul li {
+            animation: slideInUp 1s ease-out;
+            animation-fill-mode: both;
+        }
+
+        nav ul li:nth-child(1) { animation-delay: 0.1s; }
+        nav ul li:nth-child(2) { animation-delay: 0.2s; }
+        nav ul li:nth-child(3) { animation-delay: 0.3s; }
+        nav ul li:nth-child(4) { animation-delay: 0.4s; }
+        nav ul li:nth-child(5) { animation-delay: 0.5s; }
+
+        @keyframes slideInUp {
+            from {
+                transform: translateY(50px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        nav a {
+            text-decoration: none;
+            color: white;
+            font-weight: 600;
+            font-size: 1.1rem;
+            padding: 12px 24px;
+            border-radius: 50px;
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(5px);
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            transition: all 0.3s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        nav a::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.5s ease;
+        }
+
+        nav a:hover::before {
+            left: 100%;
+        }
+
+        nav a:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.2);
+            background: rgba(255, 255, 255, 0.2);
+        }
+
+        section.festivals {
+            padding: 60px 20px;
+            max-width: 1200px;
+            margin: 0 auto;
+        }
+
+        section.festivals h2 {
+            text-align: center;
+            font-size: 2.5rem;
+            font-weight: 700;
+            margin-bottom: 50px;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            animation: fadeInUp 1s ease-out;
+        }
+
+        @keyframes fadeInUp {
+            from {
+                transform: translateY(30px);
+                opacity: 0;
+            }
+            to {
+                transform: translateY(0);
+                opacity: 1;
+            }
+        }
+
+        .events-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(350px, 1fr));
+            gap: 30px;
+            padding: 20px;
+        }
+
+        .event {
+            background: rgba(255, 255, 255, 0.1);
+            backdrop-filter: blur(10px);
+            border-radius: 20px;
+            border: 1px solid rgba(255, 255, 255, 0.2);
+            box-shadow: 0 8px 32px rgba(0, 0, 0, 0.1);
+            overflow: hidden;
+            transition: all 0.4s ease;
+            animation: fadeInUp 0.8s ease-out;
+            animation-fill-mode: both;
+            position: relative;
+        }
+
+        .event:nth-child(1) { animation-delay: 0.1s; }
+        .event:nth-child(2) { animation-delay: 0.2s; }
+        .event:nth-child(3) { animation-delay: 0.3s; }
+        .event:nth-child(4) { animation-delay: 0.4s; }
+        .event:nth-child(5) { animation-delay: 0.5s; }
+        .event:nth-child(6) { animation-delay: 0.6s; }
+        .event:nth-child(7) { animation-delay: 0.7s; }
+
+        .event::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(45deg, rgba(255,255,255,0.1), transparent);
+            opacity: 0;
+            transition: opacity 0.3s ease;
+        }
+
+        .event:hover::before {
+            opacity: 1;
+        }
+
+        .event:hover {
+            transform: translateY(-10px) scale(1.02);
+            box-shadow: 0 20px 40px rgba(0, 0, 0, 0.2);
+            border-color: rgba(255, 255, 255, 0.4);
+        }
+
+        .event-image {
+            width: 100%;
+            height: 200px;
+            background: linear-gradient(45deg, #ff6b6b, #54a0ff);
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            font-size: 3rem;
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .event-image::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: -100%;
+            width: 100%;
+            height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
+            transition: left 0.6s ease;
+        }
+
+        .event:hover .event-image::before {
+            left: 100%;
+        }
+
+        .event-content {
+            padding: 25px;
+        }
+
+        .event h3 {
+            font-size: 1.5rem;
+            font-weight: 700;
+            margin-bottom: 15px;
+            color: white;
+            text-shadow: 1px 1px 2px rgba(0,0,0,0.3);
+        }
+
+        .event p {
+            color: rgba(255, 255, 255, 0.9);
+            line-height: 1.6;
+            font-size: 1rem;
+        }
+
+        footer {
+            background: linear-gradient(135deg, #2c3e50, #4a6741);
+            color: white;
+            text-align: center;
+            padding: 30px 20px;
+            margin-top: 60px;
+            position: relative;
+            overflow: hidden;
+        }
+
+        footer::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 2px;
+            background: linear-gradient(90deg, #ff6b6b, #54a0ff, #ff6b6b);
+            background-size: 200% 100%;
+            animation: shimmer 3s ease-in-out infinite;
+        }
+
+        @keyframes shimmer {
+            0% { background-position: -200% 0; }
+            100% { background-position: 200% 0; }
+        }
+
+        footer p {
+            font-size: 1.1rem;
+            font-weight: 500;
+        }
+
+        /* Festival-specific gradients */
+        .event:nth-child(1) .event-image { background: linear-gradient(45deg, #ff9a9e, #fecfef); }
+        .event:nth-child(2) .event-image { background: linear-gradient(45deg, #a8edea, #fed6e3); }
+        .event:nth-child(3) .event-image { background: linear-gradient(45deg, #ffecd2, #fcb69f); }
+        .event:nth-child(4) .event-image { background: linear-gradient(45deg, #ff8a80, #ff80ab); }
+        .event:nth-child(5) .event-image { background: linear-gradient(45deg, #8fd3f4, #84fab0); }
+        .event:nth-child(6) .event-image { background: linear-gradient(45deg, #a6c0fe, #f68084); }
+        .event:nth-child(7) .event-image { background: linear-gradient(45deg, #fbc2eb, #a6c1ee); }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            header h1 {
+                font-size: 2rem;
+            }
+            
+            nav ul {
+                flex-direction: column;
+                gap: 15px;
+            }
+            
+            section.festivals h2 {
+                font-size: 2rem;
+            }
+            
+            .events-grid {
+                grid-template-columns: 1fr;
+                gap: 20px;
+                padding: 10px;
+            }
+        }
+
+        /* Scroll animations */
+        @keyframes pulse {
+            0%, 100% { transform: scale(1); }
+            50% { transform: scale(1.05); }
+        }
+
+        .pulse-animation {
+            animation: pulse 2s ease-in-out infinite;
+        }
+
+        /* Add subtle glow effect to important elements */
+        .event:hover h3 {
+            text-shadow: 0 0 10px rgba(255,255,255,0.5);
+        }
+    </style>
+</head>
+<body>
+    <header>
+        <h1>🌴 Welcome to Kerala Tourism 🌴</h1>
+        <nav>
+            <ul>
+                <li><a href="kerala tourism.html">🏠 Home</a></li>
+                <li><a href="Package.html">📦 Packages</a></li>
+                <li><a href="Contact.html">📞 Contact</a></li>
+                <li><a href="logintourism.html">🔐 Login</a></li>
+                <li><a href="New registration.html">🎫 Book Now</a></li>
+            </ul>
+        </nav>
+    </header>
+
+    <section class="festivals">
+        <h2>✨ Festivals and Events in Kerala ✨</h2>
+        <div class="events-grid">
+            <div class="event">
+                <div class="event-image">🎭</div>
+                <div class="event-content">
+                    <h3>Onam Festival</h3>
+                    <p>The Onam festival is a traditional harvest festival celebrated with grand feasts and cultural performances. Experience the vibrant colors, traditional dances, and the spirit of unity that makes this festival truly special.</p>
+                </div>
+            </div>
+            <div class="event">
+                <div class="event-image">🎄</div>
+                <div class="event-content">
+                    <h3>Christmas</h3>
+                    <p>Christmas is an annual festival commemorating the birth of Jesus Christ, observed primarily on December 25 as a religious and cultural celebration among billions of people around the world.</p>
+                </div>
+            </div>
+            <div class="event">
+                <div class="event-image">🌅</div>
+                <div class="event-content">
+                    <h3>Vishu</h3>
+                    <p>The second most important festival of Kerala as it marks the New Year which normally falls on the 14th, 15th, or 16th of April. This day determines how the rest of the year is going to be for the Malayalis.</p>
+                </div>
+            </div>
+            <div class="event">
+                <div class="event-image">🐘</div>
+                <div class="event-content">
+                    <h3>Thrissur Pooram</h3>
+                    <p>One of the most famous temple festivals of Kerala, celebrated in Vadakkunnathan Temple in Thrissur. Famous for its spectacular elephant parade and breathtaking fireworks that light up the entire night sky.</p>
+                </div>
+            </div>
+            <div class="event">
+                <div class="event-image">🕉️</div>
+                <div class="event-content">
+                    <h3>Thiruvathira</h3>
+                    <p>Celebrated in December or January, this festival is dedicated to Lord Shiva. It is believed that this day is perfect and very auspicious to worship Lord Shiva, bringing devotees together in spiritual harmony.</p>
+                </div>
+            </div>
+            <div class="event">
+                <div class="event-image">🏛️</div>
+                <div class="event-content">
+                    <h3>Ambalapuzha Aarattu</h3>
+                    <p>Held at the Sree Krishnaswamy Temple at Alapuzha, this ten-day festival celebrates Ambalapuzha Unnikannan. The Arattu is conducted on the final day called Thiruvonam Nakshatram.</p>
+                </div>
+            </div>
+            <div class="event">
+                <div class="event-image">🔥</div>
+                <div class="event-content">
+                    <h3>Makaravilakku Festival</h3>
+                    <p>An annual festival celebrated in Sabarimala temple on Makar Sankranti (January 14th). A sacred procession carries the ornaments of Ayyappan, creating a spiritual journey that begins two days prior to Makara Jyothi Day.</p>
+                </div>
+            </div>
+        </div>
+    </section>
+
+    <footer>
+        <p>&copy; 2023 Kerala Tours - Experience the Magic of God's Own Country</p>
+    </footer>
+</body>
+</html>
