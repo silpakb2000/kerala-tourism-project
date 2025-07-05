@@ -1,0 +1,478 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title>Kerala Tourism Demo Page</title>
+    <meta charset="utf-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1">
+    <style>
+        @import url('https://fonts.googleapis.com/css2?family=Poppins:wght@300;400;500;600;700&display=swap');
+        
+        * {
+            box-sizing: border-box;
+        }
+
+        body {
+            margin: 0;
+            font-family: 'Poppins', sans-serif;
+            line-height: 1.6;
+            color: #333;
+            background: linear-gradient(135deg, #f5f7fa 0%, #c3cfe2 100%);
+        }
+
+        h1 {
+            text-align: center;
+            color: #2c5530;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.1);
+            margin: 20px 0;
+            font-weight: 600;
+        }
+
+        h2 {
+            text-align: center;
+            color: #2c5530;
+            margin: 25px 0;
+            font-weight: 500;
+        }
+
+        h3 {
+            color: #1a4a1f;
+            margin: 15px 0;
+            font-weight: 500;
+        }
+
+        /* Style the header */
+        .header {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            padding: 30px;
+            text-align: center;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.1);
+            position: relative;
+            overflow: hidden;
+        }
+
+        .header::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            bottom: 0;
+            background: url('data:image/svg+xml,<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 100 100"><defs><pattern id="grain" width="100" height="100" patternUnits="userSpaceOnUse"><circle cx="25" cy="25" r="1" fill="white" opacity="0.1"/><circle cx="75" cy="75" r="1" fill="white" opacity="0.1"/><circle cx="50" cy="10" r="0.5" fill="white" opacity="0.1"/></pattern></defs><rect width="100" height="100" fill="url(%23grain)"/></svg>');
+            pointer-events: none;
+        }
+
+        .header h1 {
+            color: white;
+            font-size: 2.5em;
+            margin: 0;
+            position: relative;
+            z-index: 1;
+        }
+
+        /* Style the top navigation bar */
+        .topnav {
+            overflow: hidden;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            box-shadow: 0 2px 10px rgba(0,0,0,0.1);
+            border-radius: 0 0 15px 15px;
+        }
+
+        /* Style the topnav links */
+        .topnav a {
+            float: left;
+            display: block;
+            color: #ecf0f1;
+            text-align: center;
+            padding: 16px 20px;
+            text-decoration: none;
+            transition: all 0.3s ease;
+            position: relative;
+            font-weight: 400;
+        }
+
+        .topnav a::after {
+            content: '';
+            position: absolute;
+            width: 0;
+            height: 3px;
+            bottom: 0;
+            left: 50%;
+            background: linear-gradient(90deg, #3498db, #2ecc71);
+            transition: all 0.3s ease;
+            transform: translateX(-50%);
+        }
+
+        /* Change color on hover */
+        .topnav a:hover {
+            background: linear-gradient(135deg, #3498db 0%, #2ecc71 100%);
+            color: white;
+            transform: translateY(-2px);
+            box-shadow: 0 4px 8px rgba(0,0,0,0.2);
+        }
+
+        .topnav a:hover::after {
+            width: 80%;
+        }
+
+        /* Main content area */
+        .main-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 20px;
+            background: rgba(255,255,255,0.9);
+            border-radius: 15px;
+            margin-top: 20px;
+            margin-bottom: 20px;
+            box-shadow: 0 8px 32px rgba(0,0,0,0.1);
+            backdrop-filter: blur(10px);
+        }
+
+        /* Image styling */
+        img {
+            border-radius: 10px;
+            box-shadow: 0 4px 15px rgba(0,0,0,0.2);
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        img:hover {
+            transform: translateY(-5px) scale(1.02);
+            box-shadow: 0 8px 25px rgba(0,0,0,0.3);
+        }
+
+        /* Center the main image */
+        .main-image {
+            display: block;
+            margin: 20px auto;
+            border-radius: 15px;
+        }
+
+        /* Paragraph styling */
+        p {
+            text-align: justify;
+            margin: 15px 0;
+            padding: 15px;
+            background: rgba(255,255,255,0.8);
+            border-radius: 8px;
+            box-shadow: 0 2px 10px rgba(0,0,0,0.05);
+            border-left: 4px solid #3498db;
+        }
+
+        /* List styling */
+        ol {
+            counter-reset: item;
+            padding-left: 0;
+        }
+
+        ol li {
+            display: block;
+            margin: 30px 0;
+            padding: 20px;
+            background: linear-gradient(135deg, rgba(255,255,255,0.9) 0%, rgba(240,248,255,0.9) 100%);
+            border-radius: 15px;
+            box-shadow: 0 5px 20px rgba(0,0,0,0.1);
+            position: relative;
+            border-left: 5px solid #3498db;
+            transition: transform 0.3s ease, box-shadow 0.3s ease;
+        }
+
+        ol li:hover {
+            transform: translateX(10px);
+            box-shadow: 0 8px 30px rgba(0,0,0,0.15);
+        }
+
+        ol li::before {
+            counter-increment: item;
+            content: counter(item);
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            color: white;
+            font-weight: bold;
+            font-size: 14px;
+            border-radius: 50%;
+            width: 30px;
+            height: 30px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            position: absolute;
+            left: -15px;
+            top: 20px;
+            box-shadow: 0 2px 8px rgba(0,0,0,0.2);
+        }
+
+        /* Read more links */
+        a[href*="Read more"] {
+            display: inline-block;
+            margin-top: 10px;
+            padding: 8px 16px;
+            background: linear-gradient(135deg, #3498db, #2ecc71);
+            color: white;
+            text-decoration: none;
+            border-radius: 20px;
+            transition: all 0.3s ease;
+            font-weight: 500;
+            box-shadow: 0 2px 10px rgba(52, 152, 219, 0.3);
+        }
+
+        a[href*="Read more"]:hover {
+            transform: translateY(-2px);
+            box-shadow: 0 4px 15px rgba(52, 152, 219, 0.4);
+            background: linear-gradient(135deg, #2980b9, #27ae60);
+        }
+
+        /* Contact section */
+        .contact-section {
+            background: linear-gradient(135deg, #667eea 0%, #764ba2 100%);
+            color: white;
+            padding: 30px;
+            border-radius: 15px;
+            margin: 30px 0;
+            box-shadow: 0 8px 25px rgba(0,0,0,0.2);
+        }
+
+        .contact-section h2 {
+            color: white;
+            text-shadow: 2px 2px 4px rgba(0,0,0,0.3);
+        }
+
+        .contact-section p {
+            background: rgba(255,255,255,0.1);
+            border-left: 4px solid #3498db;
+            backdrop-filter: blur(10px);
+            color: white;
+        }
+
+        /* Footer */
+        footer {
+            text-align: center;
+            padding: 20px;
+            background: linear-gradient(135deg, #2c3e50 0%, #34495e 100%);
+            color: #ecf0f1;
+            margin-top: 30px;
+            border-radius: 15px 15px 0 0;
+            box-shadow: 0 -4px 15px rgba(0,0,0,0.1);
+        }
+
+        /* Top destinations images */
+        .destinations-gallery {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 15px;
+            margin: 20px 0;
+        }
+
+        .destinations-gallery img {
+            flex: 1;
+            min-width: 250px;
+            max-width: 300px;
+            height: 200px;
+            object-fit: cover;
+        }
+
+        /* Horizontal rule styling */
+        hr {
+            border: none;
+            height: 3px;
+            background: linear-gradient(90deg, #3498db, #2ecc71, #3498db);
+            border-radius: 2px;
+            margin: 30px 0;
+        }
+
+        /* Responsive design */
+        @media (max-width: 768px) {
+            .topnav a {
+                float: none;
+                display: block;
+                text-align: left;
+            }
+            
+            .destinations-gallery {
+                flex-direction: column;
+            }
+            
+            .main-content {
+                margin: 10px;
+                padding: 15px;
+            }
+            
+            .header h1 {
+                font-size: 2em;
+            }
+        }
+    </style>
+</head>
+
+<body>
+    <div class="header">
+        <h1>Kerala Tourism</h1>
+    </div>
+    
+    <div class="topnav">
+        <a href="kerala tourism.html">Home</a>
+        <a href="weather.html">Weather</a>
+        <a href="Package.html">Packages</a>
+        <a href="Activities.html">Activities</a>
+        <a href="Festival.html">Festivals & Events</a>
+        <a href="Contact.html">Contact</a> 
+        <a href="logintourism.html">Login</a>
+        <a href="New registration.html">Book Now</a>
+    </div>
+
+    <div class="main-content">
+        <img src="image/gods-own-country.png" width="200" height="180" class="main-image">
+        
+        <h1>Kerala Tourism</h1>
+        <h2>Welcome to God's Own Country</h2>
+        <hr>
+        
+        <h2>About Kerala Tourism</h2>
+        <p>Kerala, a picturesque state in southwestern India, is celebrated as "God's Own Country" for its breathtaking landscapes and rich cultural heritage. Its tourism industry thrives on a blend of natural beauty, vibrant traditions, and wellness offerings. From tranquil backwaters and pristine beaches to lush hill stations and vibrant festivals, Kerala offers a diverse array of experiences. Visitors can cruise the serene backwaters on traditional houseboats, relax on stunning beaches, explore misty hill stations, and indulge in traditional Ayurvedic treatments. The state's cultural treasures encompass classical dance forms, art, music, and delectable cuisine. Kerala's wildlife sanctuaries and historical sites add to its allure, making it a must-visit destination for those seeking a harmonious blend of nature and culture.</p>
+        
+        <h1>Top Destinations</h1>
+        <div class="destinations-gallery">
+            <img src="image/mountain.jpeg" width="379" height="200">
+            <img src="image/tvm.jpeg" width="320" height="200">
+            <img src="image/wayanad churam.jpeg" width="353" height="400">
+            <img src="image/houseboat.jpeg" width="342" height="400">
+        </div>
+
+        <h1>Places To Visit</h1>
+        <hr>
+        
+        <ol>
+            <li>
+                <h3>Kottayam</h3>
+                <img src="image/kottayam-image.jpg" width="500" height="400">
+                <p>Giving travelers an opportunity to travel back in time, Kottayam is one of the most serene places to see in Kerala. The ancient town of Kottayam boasts about being rich in culture. With its population achieving hundred percent literacy rate, this town was given the name 'Akshara Nagari', that also translates to the City of Letters. Along with being home to several publishing houses, this destination is also the commercial hub of spices and crops. The picturesque views and the ancient shrines simply adds to the beauty of this destination.</p>
+                <a href="Read more.html">Read More</a>
+            </li>
+            
+            <li>
+                <h3>Ponmudi</h3>
+                <img src="image/Ponmudi-big.jpg" width="500" height="400">
+                <p>Kerala is all about backwaters, mighty ocean, playful beaches, spice gardens, or evergreen coconut groves, you must visit the stunning hill station called Ponmudi! Around 55km away from the state capital, this promising hill station will make you rethink and create a whole new perception God's Own Country! Enchanted by the spellbinding beauty of the Western Ghats, a drive or ride to Ponmudi has its own fun and excitement. While for the nature lovers, this part of the journey opens an unknown window to Kerala's mesmerising beauty, adrenaline seekers love to have a tryst with the thrills associated.</p>
+                <a href="Read more1.html">Read More</a>
+            </li>
+            
+            <li>
+                <h3>Varkala</h3>
+                <img src="image/varkala.jpg" width="500" height="400">
+                <p>Flaunting its gracious beauty and charm while having a tryst with the Arabian Sea, Varkala is surely one of the most gorgeous and best places to visit in Kerala! A kaleidoscopic coastal town in Trivandrum, this is in fact the only place in God's Own Country where cliffs are found alongside the sea-line. While being a hotspot among the beach lovers, Varkala is also known for the ancient Janardana Swami Temple that dates back to 2,000 years. If you are planning for a Kerala trip, make sure you visit this quaint town; it will keep you amazed all through with its impeccable beauty, devout ambience, and playful beach!</p>
+                <a href="Read more2.html">Read More</a>
+            </li>
+            
+            <li>
+                <h3>Munnar</h3>
+                <img src="image/munnar.jpg" width="500" height="400">
+                <p>Yet another gorgeous hill station in the lap of the fascinating Western Ghats, Munnar needs no introduction. Rising 1,600m above the sea level, a vacation in the beguiling locales of this hilly retreat is all about the lofty clouds, picturesque mountains, rolling hills, and a soothing ambience. Canopied mostly by never-ending tea plantations and lush forests, you simply cannot miss out Munnar while searching for the best tourist destination in Kerala. Be it during the summer or the winter, monsoon or the spring, Munnar will always make you crave for more!</p>
+                <a href="Read more3.html">Read More</a>
+            </li>
+            
+            <li>
+                <h3>Alleppey (Alappuzha)</h3>
+                <img src="image/alappuzha-alleppey.jpg" width="500" height="400">
+                <p>There is the whole of Kerala in one side, and then there is this heavenly tourist destination called Alappuzha or Alleppey! Esteemed as the 'Backwater Capital of India' or the 'Venice of the East', Alleppey is known for its silent backwaters and bountiful beauty! Seated on the banks of the azure Vembanad Lake, it is in fact one of the most popular backwater destinations in Kerala and one of the highest sought-after tourist places in Kerala. Visit this paradise; enjoy houseboat cruise and stay, village walks, Ayurvedic therapies and lot more!</p>
+                <a href="Read more4.html">Read More</a>
+            </li>
+            
+            <li>
+                <h3>Vagamon</h3>
+                <img src="image/vagamon.jpg" width="500" height="400">
+                <p>If you are looking for an offbeat, yet captivating holiday experience in Kerala, you must plan your vacation in Vagamon. One of the most scenic hill stations and least explored tourist places in Kerala, this retreat in the Idukki district is known for its salubrious beauty, pleasant climate, and much more. In addition to leisure travellers, thrill and adventure seekers also make it to Vagamon in a considerable number. A year-round destination, it is considered as an ideal destination for adventure activities like paragliding, mountaineering, rock climbing, trekking, and lot more.</p>
+                <a href="Read more5.html">Read More</a>
+            </li>
+            
+            <li>
+                <h3>Malampuzha</h3>
+                <img src="image/malampuzha.jpeg" width="500" height="400">
+                <p>India's 'Spice Capital' is all about lush greeneries and heart-warming ambience, hence the name "God's Own Country'! And while in Malampuzha, located in the Palakkad district, you can feel the true essence of Kerala and its bountiful nature. Mostly covered by evergreen vegetation, this part of the state is a picture-perfect display of how we should co-exist with Mother Nature. Malampuzha's undulating beauty and tranquillity makes it a must to visit place in the entire region of Southern India.</p>
+                <a href="Read more6.html">Read More</a>
+            </li>
+            
+            <li>
+                <h3>Nelliampathy</h3>
+                <img src="image/nelliampathy.jpeg" width="500" height="400">
+                <p>If Kerala is called the 'God's Own Country', Nelliampathy (or Nelliampathi) is fondly called the 'God's Own Village'! Located around 60km from Palakkad, this quaint hamlet is one of the least explored and equally stunning hill stations in Kerala. With a captivating range of hills that soar up to an astounding height of 467-1,572m, Nelliampathy serves as an ideal getaway to enjoy and revel in the alluring charm of India's Backwater Capital. With lofty peaks, rugged trails, and around 10-hair pin bends, this tiny, yet enthralling hill station also serves as a hotspot among the thrill and fun seekers.</p>
+                <a href="Read more7.html">Read More</a>
+            </li>
+            
+            <li>
+                <h3>Kuttanad</h3>
+                <img src="image/kuttanad.jpeg" width="500" height="400">
+                <p>Fondly called as the 'Rice Bowl of Kerala', Kuttanad is truly a poetry in motion! Gracious, tranquil, evergreen, and still untouched by the outer world, this magnificent tourist destination in God's Own Country is fringed with captivating groves of coconut trees, and is interconnected with a bucolic network of canal. This makes Kuttanad a place to behold among the visitors. While the intrinsic network of canals add more to the beauty and charm of Kuttanad, its evergreen swaying paddy fields make it truly irresistible for the visitors. Also, the rustic and traditional way of living that still persists in this piece of heaven will surely make you feel and live the true colours of Kerala.</p>
+                <a href="Read more8.html">Read More</a>
+            </li>
+            
+            <li>
+                <h3>Idukki</h3>
+                <img src="image/idukki.jpeg" width="500" height="400">
+                <p>Among the best holiday destinations in Kerala, Idukki is the perfect place if relaxation and rejuvenation is your priority. Nestled amidst verdant hills and luxurious forests, Idukki tourist places allures ardent travellers, nature enthusiasts, and photography buffs with its stunning natural aura and attractions. Surrounded by aromatic tea and spice plantations, Idukki is undeniably one of the famous tourist spots in Kerala perfect for treks, nature walks, and bird watching.</p>
+                <a href="Read more9.html">Read More</a>
+            </li>
+            
+            <li>
+                <h3>Kochi (Cochin)</h3>
+                <img src="image/kochi.jpeg" width="500" height="400">
+                <p>This city is a blend of historical and modern elements. Fort Kochi, with its colonial architecture, Chinese fishing nets, and vibrant arts scene, is a popular area. The Mattancherry Palace, Jewish Synagogue, and the bustling marketplaces are worth visiting.</p>
+                <a href="Read more10.html">Read More</a>
+            </li>
+            
+            <li>
+                <h3>Wayanad</h3>
+                <img src="image/wayanad.jpeg" width="500" height="400">
+                <p>A hilly district known for its lush forests, waterfalls, and wildlife. It's a great destination for trekking, camping, and exploring nature. The Edakkal Caves, Banasura Sagar Dam, and Chembra Peak are top attractions.</p>
+                <a href="Read more11.html">Read More</a>
+            </li>
+            
+            <li>
+                <h3>Thekkady</h3>
+                <img src="image/thekkady.jpeg" width="500" height="400">
+                <p>Home to the Periyar National Park, Thekkady offers opportunities for wildlife spotting and jungle safaris. The Periyar Lake is a highlight, where you can take boat rides to see animals in their natural habitat.</p>
+                <a href="Read more12.html">Read More</a>
+            </li>
+            
+            <li>
+                <h3>Kasargod</h3>
+                <img src="image/kasargod.jpeg" width="500" height="400">
+                <p>Among the best Kerala trip places Kasargod is quite famous among tourists. Located close to Bekal, tucked between Western Ghats on one side and azure Arabian Sea on the other, Kasargod is an entrancing beauty of 'God's own country.' Featuring rolling hills, plush coconut plantations, soothing sea breeze, and host of heritage temples, it attracts peace-loving travelers but and considered as one of the most photogenic places in Kerala.</p>
+                <a href="Read more13.html">Read More</a>
+            </li>
+            
+            <li>
+                <h3>Thrissur</h3>
+                <img src="image/thrissur.jpeg" width="500" height="400">
+                <p>One of the best among all the other Kerala trip places, Thrissur boasts of its rich cultural extravaganza along with scenic splendour like picturesque waterfalls and beaches. Famous for Thrissur Pooram and Onam celebrations, this small quaint town of Kerala is fittingly acknowledged as the 'cultural capital of Kerala.</p>
+                <a href="Read more14.html">Read More</a>
+            </li>
+        </ol>
+        <hr>
+
+        <div class="contact-section">
+            <h2><u>Contact Us</u></h2>
+            <p>For Inbound Tour:<br>
+                (Foreign nationals including NRI visiting India)<br>
+                Tel: +91-8606140009<br>
+                Tel: +91-8848103925<br>
+                24 x 7 Contact:<br>
+                Tel: +91-8848103925<br><br>
+                
+                For Domestic Tour:<br>
+                (Indian nationals visiting within the country)<br>
+                Tel: +91-8606140009<br>
+                Tel: +91-8848103925<br><br>
+                
+                Email Contact:<br>
+                info@ekeralatourism.net<br><br>
+                
+                Operational Hours:<br>
+                Monday to Friday: 9am to 6pm<br>
+                Saturday & Sunday: 9am to 3pm
+            </p>
+        </div>
+    </div>
+
+    <footer>
+        <p>&copy; 2023 Kerala Tours</p>
+    </footer>
+</body>
+</html>
